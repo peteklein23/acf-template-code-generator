@@ -17,48 +17,28 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
-    // include classes
-    require_once( dirname( __FILE__ ) . '/ACFTemplateCode.php' );
+// include classes
+require_once( plugin_dir_path( __FILE__ ) . '/ACFTemplateCode.php' );
 
+// add hooks
+add_action( 'add_meta_boxes', 'add_acf_template_metaboxes' );
 
-    add_action( 'add_meta_boxes', 'add_events_metaboxes' );
+function add_acf_template_metaboxes() {
+    add_meta_box( 'acf_template_code', 'ACF Template Code', 'acf_show_template_code', 'acf-field-group', 'normal', 'low' );
+}
 
-    // Add the Events Meta Boxes
+function acf_show_template_code() {
+    global $post;
+    
+    $fields = acf_get_fields( $post->ID );
 
-    function add_events_metaboxes() {
-        add_meta_box( 'acf_template_code', 'ACF Template Code', 'acf_show_template_code', 'acf-field-group', 'normal', 'low' );
-    }
-
-
-    // The Event Location Metabox
-
-    function acf_show_template_code() {
-        global $post;
-        
-        $fields = acf_get_fields( $post->ID );
-
-        echo "<textarea style='display:block; width:100%; height:500px; font-family:courier new'>";
-        if( !empty( $fields ) ){
-            foreach( $fields as $field ){
-                $fieldTemplate = new ACFTemplateCode( $field );
-                echo $fieldTemplate->get_code();
-            }
+    echo "<textarea style='display:block; width:100%; height:500px; font-family:courier new' class='langauge-php'>";
+    if( !empty( $fields ) ){
+        foreach( $fields as $field ){
+            $fieldTemplate = new ACFTemplateCode( $field );
+            echo $fieldTemplate->get_code();
         }
-        echo "</textarea>";
-
-        /*
-
-        // Noncename needed to verify where the data originated
-        echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
-        wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
-        
-        // Get the location data if its already been entered
-        $location = get_post_meta($post->ID, '_location', true);
-        
-        // Echo out the field
-        echo '<input type="text" name="_location" value="' . $location  . '" class="widefat" />';*/
-
     }
+    echo "</textarea>";
+}
 
-
-?>

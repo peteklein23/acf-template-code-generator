@@ -63,10 +63,10 @@ if ( !class_exists( 'BaseField' ) ) {
         public function get_before_code($isArray = false){
             $conditionalStatement = $this->get_conditional_statement();
             if( $isArray == true ){
-                return "\n\n<?php //$this->label ?>\n$conditionalStatement\n<?php if( !empty( get_$this->getFunc('$this->name' ) ) ):\n<div class='$this->name'> ?>\n";
+                return "\n\n<?php /* $this->label */ ?>\n$conditionalStatement\n<?php if( !empty( get_$this->getFunc('$this->name' ) ) ):\n<div class='$this->name'> ?>\n";
             }
             else{
-                return "\n\n<?php //$this->label ?>\n$conditionalStatement\n<?php if( get_$this->getFunc( '$this->name' ) ): ?>\n<div class='$this->name'>\n";
+                return "\n\n<?php /* $this->label */ ?>\n$conditionalStatement\n<?php if( get_$this->getFunc( '$this->name' ) ): ?>\n<div class='$this->name'>\n";
             }
         }
 

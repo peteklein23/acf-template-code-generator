@@ -11,6 +11,7 @@ if ( !class_exists( 'ACFTemplateCode' ) ) {
 
         function __construct( $field, $isSubfield = false ){
 
+            // includes
             define( 'MY_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
             require_once( MY_PLUGIN_PATH . '/fields/DirectOutputField.php' );
             require_once( MY_PLUGIN_PATH . '/fields/ImageField.php' );
@@ -28,6 +29,7 @@ if ( !class_exists( 'ACFTemplateCode' ) ) {
             require_once( MY_PLUGIN_PATH . '/fields/RepeaterField.php' );
             require_once( MY_PLUGIN_PATH . '/fields/FlexibleContentField.php' );
             require_once( MY_PLUGIN_PATH . '/fields/CloneField.php' );
+
 
             $this->field = $field;
             $this->fieldType = $field['type'];
